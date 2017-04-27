@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SETTINGS_DIR = os.path.dirname(__file__)
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
@@ -67,6 +68,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'shopsys.utils.context_processers.shopsys',
             ],
         },
     },
@@ -98,16 +100,40 @@ DATABASES = {
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+DATE_FORMAT = 'Y-m-d'
 
-USE_I18N = True
+TIME_ZONE = 'Asia/Shanghai'
 
-USE_L10N = True
+# 是否开启国际化支持，不开启时可以不加载翻译模块优化性能
+USE_I18N = False
+
+# 本地化格式支持，为True使用系统locale设置显示数字、时间等格式
+USE_L10N = False
 
 USE_TZ = True
 
+# 是否设置Etag, 设置etag可以降低网络资源开销，但会增加服务器性能开销
+USE_ETAGS = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+# 生产环境静态资源的配置
+# https://docs.djangoproject.com/en/1.9/howto/static-files/deployment/
 
+# 在给定的路径中寻找静态资源
+STATICFILES_DIRS = (
+    os.path.join(SETTINGS_DIR, 'static'),
+)
 STATIC_URL = '/static/'
+
+# 用户上传文件位置
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
+# 站点设置 通过全局上下文管理器实现的
+SITE_NAME = '小白购'
+META_KEYWORDS = '小白购, 特价男装, 精品女鞋, 计算机图书, 双十一特惠'
+META_DESCRIPTION = '''小白购 - 成都最大、最安全的网上交易平台，提供各类服饰、
+    美容、家居、数码、话费/点卡充值… 2亿优质特价商品，同时提供担保交易(先收货
+    后付款)、先行赔付、假一赔三、七天无理由退换货、数码免费维修等安全交易保障
+    服务，让你全面安心享受网上购物乐趣！'''
